@@ -6,17 +6,12 @@ import retina.classifier.input as ip
 
 
 def evaluate(X_test, Y_test, files_list, vgg16_model, top_model):
-    test_data = []
-    test_data.extend(X_test[0:10])
-    test_data.extend(X_test[100:110])
-    test_data = np.asarray(test_data)
-    print(len(test_data))
-    test_labels = np.hstack((Y_test[0:10], Y_test[100:110]))
-    print(test_labels)
+    indices = np.random.random_integers(0, 99, 10)
+    indices = np.append(indices, (np.random.random_integers(100, 199, 10)))
 
-    files0 = files_list[0:10]
-    files1 = files_list[100:110]
-    files = files0 + files1
+    test_data = np.asarray([X_test[i] for i in indices])
+    test_labels = [Y_test[i] for i in indices]
+    files = [files_list[i] for i in indices]
 
     print('Generating bottleneck features . . . ')
 
