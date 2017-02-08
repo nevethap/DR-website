@@ -1,0 +1,8 @@
+.idea/
+db.sqlite3
+retina/static/retina/images
+retina/static/retina/retina_images
+retina/classifier/labels
+retina/classifier/models
+*.pyc
+nnweb/settings.py

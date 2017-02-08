@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'retina/base.html' %}
+    <title>{% block title %} Image Details {% endblock %} </title>
+</head>
+<body>
+{% block body %}
+    <div class="image-details">
+        {% load static %}
+        <img class="img-details" src= "{% static image.img_logo %}" height="270" width="270"/>
+        <h3>Actual : {{image.actual}}</h3>
+        <h3>Predicted : {{image.preidcted}}</h3>
+        {% if error_message %}
+            <h3>{{ error_message }}</h3>
+        {% endif %}
+    </div>
+{% endblock %}
+</body>
+</html>

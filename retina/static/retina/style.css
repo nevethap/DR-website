@@ -1,0 +1,41 @@
+body {
+    background : white url("images/background.jpg");
+}
+
+.navbar-brand {
+    font-family : 'Tangerine', serif;
+    font-size : 32px !important;
+}
+
+.retina-details {
+    margin : 10px;
+}
+
+.col-md-6 {
+    margin: 30px;
+    outline: 2px solid #ccc;
+    outline-style: solid;
+    height: 210px;
+    width: 14% !important;
+    background: white;
+    padding-bottom: 10px;
+}
+.img-index {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.inline-form {
+    display : inline;
+}
+
+.img-details {
+    margin : 20px;
+}
+
+h3 {
+    margin-left : 20px;
+}
+
+
