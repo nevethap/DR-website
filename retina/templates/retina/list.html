@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    {% extends 'retina/base.html' %}
+</head>
+
+<body>
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <a href="{% url 'retina:list' %}">
+                        <span  aria-hidden="true"></span> Refresh
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% if object_list %}
+        <div class="row">
+            {% for image in all_images %}
+            <div class="col-md-6" >
+                {% load static %}
+                <a href="{% url 'retina:detail' image.id %}"><img class="img-index" src="{% static image.img_logo %}" height="70%" width="100%"/></a>
+                <!--<h3 class="inline-form">Image {{ image.srcFile }}</h3><br>-->
+                <p class="inline-form"><strong>Actual : {{ image.actual }}</strong></p><br>
+                <p class="inline-form"><strong>Predicted : {{ image.preidcted }}</strong></p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h3> No images to display </h3>
+        {% endif %}
+    </div>
+{% endblock %}
+
+</body>
+</html>

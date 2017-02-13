@@ -42,3 +42,15 @@ h3 {
     margin-left : 20px !important;
 }
 
+a.load {
+    font-size : 24px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.boxed {
+    text-align : justify;
+    background : white;
+    outline: 2px solid #ccc;
+    outline-style: solid;
+    padding : 5px;
+}

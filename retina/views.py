@@ -12,8 +12,18 @@ def load_results():
         Image(srcFile=file, actual=label, preidcted=prediction, img_logo=file).save()
 
 
-class IndexView(generic.ListView):
+class IndexView(generic.TemplateView):
     template_name = 'retina/index.html'
+    # context_object_name = 'all_images'
+    #
+    # def get_queryset(self):
+    #     Image.objects.all().delete()
+    #     load_results()
+    #     return Image.objects.all()
+
+
+class ListView(generic.ListView):
+    template_name = 'retina/list.html'
     context_object_name = 'all_images'
 
     def get_queryset(self):

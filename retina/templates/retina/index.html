@@ -11,22 +11,30 @@
 {% block body %}
 
     <div class="container">
-        {% if object_list %}
         <div class="row">
-            {% for image in all_images %}
-            <div class="col-md-6" >
-                {% load static %}
-                <a href="{% url 'retina:detail' image.id %}"><img class="img-index" src="{% static image.img_logo %}" height="70%" width="100%"/></a>
-                <!--<h3 class="inline-form">Image {{ image.srcFile }}</h3><br>-->
-                <p class="inline-form"><strong>Actual : {{ image.actual }}</strong></p><br>
-                <p class="inline-form"><strong>Predicted : {{ image.preidcted }}</strong></p>
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <a href="{% url 'retina:list' %}" class="load">
+                        <span aria-hidden="true"></span> LOAD IMAGES
+                    </a>
+                </div>
             </div>
-            {% endfor %}
         </div>
-        {% else %}
-            <h3> No images to display </h3>
-        {% endif %}
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-justify boxed">
+                    <b>
+                    This page demos an automated method of Diabetic Retinopathy screening of fundus images of the eye. The images are classified as normal[0] or affected[1] using a deep neural network.
+                        Click on the link above to load a set of images to be classified by the pre-trained model.
+                    </b>
+                </div>
+            </div>
+        </div>
     </div>
+
 {% endblock %}
 
 </body>
