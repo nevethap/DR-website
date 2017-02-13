@@ -9,6 +9,9 @@ def evaluate(X_test, Y_test, files_list, vgg16_model, top_model):
     indices = np.random.random_integers(0, 99, 10)
     indices = np.append(indices, (np.random.random_integers(100, 199, 10)))
 
+    print('Indices')
+    print(indices)
+
     test_data = np.asarray([X_test[i] for i in indices])
     test_labels = [Y_test[i] for i in indices]
     files = [files_list[i] for i in indices]
