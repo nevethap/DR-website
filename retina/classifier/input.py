@@ -26,21 +26,14 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
         if file[:1] != '.':
             im = ndimage.imread(test_path + file)
             lab = labels[labels['image'] == file_name]['level']
-            print(lab.values)
             if (lab.values == 0):
                 testxs0.append(im)
                 testys0.append(lab)
             else:
                 testxs1.append(im)
                 testys1.append(lab)
-    print(len(testxs0))
-    print(len(testys0))
-    print(len(testxs1))
-    print(len(testys1))
     testxs0.extend(testxs1)
     testys0.extend(testys1)
-    print(len(testxs0))
-    print(len(testys0))
     X_test = np.reshape(testxs0, [200, 3, 270, 270])
     Y_test = np.concatenate(testys0)
 
