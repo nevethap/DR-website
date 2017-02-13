@@ -24,6 +24,7 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
         if file[:1] != '.':
             im = ndimage.imread(test_path + file)
             lab = labels[labels['image'] == file_name]['level']
+            print ('Label : ' + str(lab))
             testxs.append(im)
             testys.append(lab)
     print(len(testxs))
