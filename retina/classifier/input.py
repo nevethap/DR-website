@@ -14,8 +14,10 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
     print (os.getcwd())
     labels = pd.read_csv('retina/classifier/labels/labels_for_class0_and_class1.csv', header=0)
     files_list = []
-    testxs = []
-    testys = []
+    testxs0 = []
+    testys0 = []
+    testxs1 = []
+    testys1 = []
 
     print("Reading images and assigning labels ...")
     for file in os.listdir(test_path):
@@ -24,13 +26,23 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
         if file[:1] != '.':
             im = ndimage.imread(test_path + file)
             lab = labels[labels['image'] == file_name]['level']
-            print ('Label : ' + str(lab))
-            testxs.append(im)
-            testys.append(lab)
-    print(len(testxs))
-    print(len(testys))
-    X_test = np.reshape(testxs, [200, 3, 270, 270])
-    Y_test = np.concatenate(testys)
+            print(lab.values)
+            if (lab.values == 0):
+                testxs0.append(im)
+                testys0.append(lab)
+            else:
+                testxs1.append(im)
+                testys1.append(lab)
+    print(len(testxs0))
+    print(len(testys0))
+    print(len(testxs1))
+    print(len(testys1))
+    testxs0.extend(testxs1)
+    testys0.extend(testys1)
+    print(len(testxs0))
+    print(len(testys0))
+    X_test = np.reshape(testxs0, [200, 3, 270, 270])
+    Y_test = np.concatenate(testys0)
 
     return X_test, Y_test, files_list
 
