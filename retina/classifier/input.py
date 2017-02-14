@@ -32,6 +32,7 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
             else:
                 testxs1.append(im)
                 testys1.append(lab)
+            print(im + ' ' + 'actual : ' + str(lab.values))
     testxs0.extend(testxs1)
     testys0.extend(testys1)
     X_test = np.reshape(testxs0, [200, 3, 270, 270])
