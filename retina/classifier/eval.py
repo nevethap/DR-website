@@ -5,14 +5,17 @@ from keras import backend as K
 import retina.classifier.input as ip
 
 
-def evaluate(X_test, Y_test, files_list, vgg16_model, top_model):
-    indices = np.random.random_integers(0, 99, 10)
-    indices = np.append(indices, (np.random.random_integers(100, 199, 10)))
+def evaluate(start_index, end_index, X_test, Y_test, files_list, vgg16_model, top_model):
+    # indices = np.random.random_integers(0, 99, 10)
+    # indices = np.append(indices, (np.random.random_integers(100, 199, 10)))
+    indices = np.arange(start_index, end_index)
 
     print('Indices')
     print(indices)
 
     test_data = np.asarray([X_test[i] for i in indices])
+    print('Y_test')
+    print(Y_test)
     test_labels = [Y_test[i] for i in indices]
     files = [files_list[i] for i in indices]
 
@@ -37,11 +40,11 @@ def evaluate(X_test, Y_test, files_list, vgg16_model, top_model):
     return test_data, test_labels,  predictions, files
 
 
-def run_evaluation():
-    X_test, Y_test, files_list = ip.input_images()
+def run_evaluation(start_index, end_index, filter_choice):
+    X_test, Y_test, files_list = ip.read_images(filter_choice)
     vgg16_model = ip.load_vgg16_model()
     top_model = ip.load_top_model()
-    test_data, test_labels, predictions, files = evaluate(X_test, Y_test, files_list, vgg16_model, top_model)
+    test_data, test_labels, predictions, files = evaluate(start_index, end_index, X_test, Y_test, files_list, vgg16_model, top_model)
     return test_data, test_labels, predictions, files
 
 

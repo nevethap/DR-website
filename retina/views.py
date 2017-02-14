@@ -5,9 +5,10 @@ from retina.classifier import eval
 from .models import Image
 
 
-def load_results():
+def load_results(start_index, end_index, filter_choice):
     K.set_image_dim_ordering('th')
-    test_data, test_labels, predictions, files = eval.run_evaluation()
+    test_data, test_labels, predictions, files = eval.run_evaluation(start_index, end_index, filter_choice)
+
     for data, label, prediction, file in zip(test_data, test_labels, predictions, files):
         Image(srcFile=file, actual=label, preidcted=prediction, img_logo=file).save()
 
@@ -28,7 +29,7 @@ class ListView(generic.ListView):
 
     def get_queryset(self):
         Image.objects.all().delete()
-        load_results()
+        load_results(20, 30, 'diseased')
         return Image.objects.all()
 
 

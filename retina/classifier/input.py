@@ -9,16 +9,22 @@ import h5py as h5py
 from keras.layers import ZeroPadding2D, Convolution2D, MaxPooling2D
 from keras.models import Sequential, model_from_json
 
+from .filter_choice import FilterChoice
 
-def input_images(test_path='retina/static/retina/retina_images/', img_width=270, img_height=270):
-    print (os.getcwd())
+
+def read_images(filter_choice='all', test_path='retina/static/retina/retina_images/', img_width=270, img_height=270):
+    print (filter_choice)
     labels = pd.read_csv('retina/classifier/labels/labels_for_class0_and_class1.csv', header=0)
-    testxs0 = []
-    testys0 = []
-    testxs1 = []
-    testys1 = []
-    files0 = []
-    files1 = []
+    testxs_healthy = []
+    testxs_diseased = []
+    testxs = []
+    testys = []
+    testys_diseased = []
+    testys_healthy = []
+    files_all = []
+    files_healthy = []
+    files_diseased = []
+    filter_choice
 
     print("Reading images and assigning labels ...")
     for file in os.listdir(test_path):
@@ -27,20 +33,33 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
             im = ndimage.imread(test_path + file)
             lab = labels[labels['image'] == file_name]['level']
             if (lab.values == 0):
-                testxs0.append(im)
-                testys0.append(lab)
-                files0.append('retina/retina_images/'+file)
+                testxs_healthy.append(im)
+                testys_healthy.append(lab)
+                files_healthy.append('retina/retina_images/'+file)
             else:
-                testxs1.append(im)
-                testys1.append(lab)
-                files1.append('retina/retina_images/' + file)
-    testxs0.extend(testxs1)
-    testys0.extend(testys1)
-    files0.extend(files1)
-    X_test = np.reshape(testxs0, [200, 3, 270, 270])
-    Y_test = np.concatenate(testys0)
-
-    return X_test, Y_test, files0
+                testxs_diseased.append(im)
+                testys_diseased.append(lab)
+                files_diseased.append('retina/retina_images/'+file)
+    testxs = testxs_healthy + testxs_diseased
+    testys.extend(testys_healthy)
+    testys.extend(testys_diseased)
+    files_all.extend(files_healthy)
+    files_all.extend(files_diseased)
+    X_test_all = np.reshape(testxs, [len(testxs), 3, 270, 270])
+    X_test_healthy = np.reshape(testxs_healthy, [len(testxs_healthy), 3, 270, 270])
+    X_test_diseased = np.reshape(testxs_diseased, [len(testxs_diseased), 3, 270, 270])
+    Y_test_all = np.concatenate(testys)
+    Y_test_healthy = np.concatenate(testys_healthy)
+    Y_test_diseased = np.concatenate(testys_diseased)
+    print(FilterChoice.DISEASED.value)
+    if(FilterChoice.DISEASED.value == filter_choice):
+        print('DISEASED')
+        return X_test_diseased, Y_test_diseased, files_diseased
+    elif(FilterChoice.HEALTHY.value == filter_choice):
+        print('HEALTHY')
+        return X_test_healthy, Y_test_healthy, files_healthy
+    print('ALL')
+    return X_test_all, Y_test_all, files_all
 
 
 def load_vgg16_model(weights_path='retina/classifier/models/vgg16_weights.h5', img_height=270,
