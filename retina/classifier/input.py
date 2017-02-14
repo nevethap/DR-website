@@ -18,6 +18,8 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
     testys0 = []
     testxs1 = []
     testys1 = []
+    files0 = []
+    files1 = []
 
     print("Reading images and assigning labels ...")
     for file in os.listdir(test_path):
@@ -29,16 +31,19 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
             if (lab.values == 0):
                 testxs0.append(im)
                 testys0.append(lab)
+                files0.append('retina/retina_images/'+file)
             else:
                 testxs1.append(im)
                 testys1.append(lab)
+                files1.append('retina/retina_images/' + file)
             print(file_name + ' ' + 'actual : ' + str(lab.values))
     testxs0.extend(testxs1)
     testys0.extend(testys1)
+    files0.extend(files1)
     X_test = np.reshape(testxs0, [200, 3, 270, 270])
     Y_test = np.concatenate(testys0)
 
-    return X_test, Y_test, files_list
+    return X_test, Y_test, files0
 
 
 def load_vgg16_model(weights_path='retina/classifier/models/vgg16_weights.h5', img_height=270,
