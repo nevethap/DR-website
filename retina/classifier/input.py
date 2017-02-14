@@ -13,7 +13,6 @@ from keras.models import Sequential, model_from_json
 def input_images(test_path='retina/static/retina/retina_images/', img_width=270, img_height=270):
     print (os.getcwd())
     labels = pd.read_csv('retina/classifier/labels/labels_for_class0_and_class1.csv', header=0)
-    files_list = []
     testxs0 = []
     testys0 = []
     testxs1 = []
@@ -23,7 +22,6 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
 
     print("Reading images and assigning labels ...")
     for file in os.listdir(test_path):
-        files_list.append('retina/retina_images/'+file)
         file_name = file.replace('.jpeg', '')
         if file[:1] != '.':
             im = ndimage.imread(test_path + file)
@@ -36,7 +34,6 @@ def input_images(test_path='retina/static/retina/retina_images/', img_width=270,
                 testxs1.append(im)
                 testys1.append(lab)
                 files1.append('retina/retina_images/' + file)
-            print(file_name + ' ' + 'actual : ' + str(lab.values))
     testxs0.extend(testxs1)
     testys0.extend(testys1)
     files0.extend(files1)
