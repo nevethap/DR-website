@@ -5,4 +5,3 @@ retina/static/retina/retina_images
 retina/classifier/labels
 retina/classifier/models
 *.pyc
-nnweb/settings.py
