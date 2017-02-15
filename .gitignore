@@ -4,4 +4,5 @@ retina/static/retina/images
 retina/static/retina/retina_images
 retina/classifier/labels
 retina/classifier/models
+.DS_Store
 *.pyc
