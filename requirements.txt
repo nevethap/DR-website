@@ -3,3 +3,4 @@ sklearn
 keras
 django
 jsonpickle
+djangorestframework

@@ -5,4 +5,5 @@ retina/static/retina/retina_images
 retina/classifier/labels
 retina/classifier/models
 .DS_Store
+nnweb/config.py
 *.pyc
