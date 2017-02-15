@@ -4,7 +4,7 @@ from keras import backend as K
 from retina.classifier import eval
 from .models import Image
 
-
+# temp commit
 def load_results(start_index, end_index, filter_choice):
     K.set_image_dim_ordering('th')
     test_data, test_labels, predictions, files = eval.run_evaluation(start_index, end_index, filter_choice)
