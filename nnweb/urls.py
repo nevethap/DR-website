@@ -1,18 +1,9 @@
-import os
+from django.conf.urls import url
 
-from django.conf.urls import url, include
-from django.contrib import admin
+from apis.views.image_predictions import ImagePredictionsView
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-REPOSITORY_ROOT = os.path.dirname(BASE_DIR)
+image_predictions = ImagePredictionsView()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^retina/', include('retina.urls')),
+    url(r'^predictions/start_index=(\d+)/end_index=(\d+)/filter_choice=(.*)/',image_predictions.getImages,name = "predictions")
 ]
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(REPOSITORY_ROOT, 'static/')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'media/')
