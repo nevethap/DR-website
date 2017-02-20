@@ -4,3 +4,4 @@ keras
 django
 jsonpickle
 djangorestframework
+django-cors-headers
