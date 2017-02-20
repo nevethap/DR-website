@@ -12,7 +12,7 @@ from keras.models import Sequential, model_from_json
 from .filter_choice import FilterChoice
 
 
-def read_images(filter_choice='all', test_path='retina/static/retina/retina_images/', img_width=270, img_height=270):
+def read_images(start_index=0, end_index=5, filter_choice='all', test_path='retina/static/retina/retina_images/', img_width=270, img_height=270):
     print (filter_choice)
     labels = pd.read_csv('retina/classifier/labels/labels_for_class0_and_class1.csv', header=0)
     testxs_healthy = []
@@ -40,11 +40,15 @@ def read_images(filter_choice='all', test_path='retina/static/retina/retina_imag
                 testxs_diseased.append(im)
                 testys_diseased.append(lab)
                 files_diseased.append('retina/retina_images/'+file)
+    testxs_healthy = testxs_healthy[start_index:end_index]
+    testxs_diseased = testxs_diseased[start_index:end_index]
+    testys_healthy = testys_healthy[start_index:end_index]
+    testys_diseased = testys_diseased[start_index:end_index]
+    files_healthy = files_healthy[start_index:end_index]
+    files_diseased = files_diseased[start_index:end_index]
     testxs = testxs_healthy + testxs_diseased
-    testys.extend(testys_healthy)
-    testys.extend(testys_diseased)
-    files_all.extend(files_healthy)
-    files_all.extend(files_diseased)
+    testys = testys_healthy + testys_diseased
+    files_all = files_healthy + files_diseased
     X_test_all = np.reshape(testxs, [len(testxs), 3, 270, 270])
     X_test_healthy = np.reshape(testxs_healthy, [len(testxs_healthy), 3, 270, 270])
     X_test_diseased = np.reshape(testxs_diseased, [len(testxs_diseased), 3, 270, 270])
@@ -53,12 +57,9 @@ def read_images(filter_choice='all', test_path='retina/static/retina/retina_imag
     Y_test_diseased = np.concatenate(testys_diseased)
     print(FilterChoice.DISEASED.value)
     if(FilterChoice.DISEASED.value == filter_choice):
-        print('DISEASED')
         return X_test_diseased, Y_test_diseased, files_diseased
     elif(FilterChoice.HEALTHY.value == filter_choice):
-        print('HEALTHY')
         return X_test_healthy, Y_test_healthy, files_healthy
-    print('ALL')
     return X_test_all, Y_test_all, files_all
 
 

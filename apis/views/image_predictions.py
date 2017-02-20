@@ -8,6 +8,7 @@ class ImagePredictionsView:
 
     def getImages(self, request, start_index, end_index, filter_choice):
         test_labels, predictions, files = eval.run_evaluation(int(start_index), int(end_index), filter_choice)
+        print('Values: ', test_labels, predictions, files)
         transformation_util = PredictionTransformationUtil()
         predictions_json = transformation_util.transform(test_labels, predictions, files)
         return JsonResponse(predictions_json, safe=False)
