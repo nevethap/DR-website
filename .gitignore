@@ -7,3 +7,5 @@ retina/classifier/models
 .DS_Store
 nnweb/config.py
 *.pyc
+retina/static/retina/retina_images_orig
+
