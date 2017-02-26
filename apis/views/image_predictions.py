@@ -7,8 +7,8 @@ from retina.classifier import eval
 class ImagePredictionsView:
 
     def getImages(self, request, start_index, end_index, filter_choice):
-        test_labels, predictions, files = eval.run_evaluation(int(start_index), int(end_index), filter_choice)
-        print('Values: ', test_labels, predictions, files)
+        test_labels, predictions, files, precision, recall = eval.run_evaluation(int(start_index), int(end_index), filter_choice)
+        print('Values: ', test_labels, predictions, files, precision, recall)
         transformation_util = PredictionTransformationUtil()
-        predictions_json = transformation_util.transform(test_labels, predictions, files)
+        predictions_json = transformation_util.transform(test_labels, predictions, files, precision, recall)
         return JsonResponse(predictions_json, safe=False)
